@@ -1,0 +1,104 @@
+/* Общий контейнер */
+body {
+    font-family: Arial, sans-serif;
+    background: #E8F9F5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Основной блок */
+.container {
+    width: 80%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+/* Шапка */
+.header {
+    background: linear-gradient(to right, #003B46, #07575B);
+    color: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: left;
+    font-size: 24px;
+}
+
+/* Основной контент */
+.content {
+    display: flex;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+/* Левая колонка */
+.left {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+/* Правая колонка ("How to use") */
+.right {
+    flex: 1;
+    background: #D1F2EB;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+/* Группа изображений */
+.image-group {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.image-group img {
+    width: 30%;
+    border-radius: 10px;
+}
+
+/* Стиль для шагов */
+.step {
+    margin-bottom: 20px;
+}
+
+.step img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Блок с советами */
+.tips {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+}
+
+.tip {
+    flex: 1;
+    background: white;
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Метки для советов */
+.tip-label {
+    background: #FF9800;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.pro-label {
+    background: #FBC02D;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-weight: bold;
+}
