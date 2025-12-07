@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Зворотний лічильник</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        #timer {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        #subscribeBtn {
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #message {
+            margin-top: 30px;
+            font-size: 24px;
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>До події залишилося:</h1>
+
+    <div id="timer">00д 00г 00хв 00с</div>
+
+    <button id="subscribeBtn">Підписатися</button>
+
+    <div id="message"></div>
+
+
+    <script>
+        let eventTime = Date.now() + 60 * 1000;
+
+        let timer = setInterval(updateTimer, 1000);
+
+        function updateTimer() {
+            let now = Date.now();
+            let diff = eventTime - now;
+
+            if (diff <= 0) {
+                document.getElementById("timer").innerHTML = "00д 00г 00хв 00с";
+                clearInterval(timer);
+                document.getElementById("subscribeBtn").disabled = true;
+                document.getElementById("subscribeBtn").style.opacity = 0.5;
+                return;
+            }
+
+            let seconds = Math.floor(diff / 1000) % 60;
+            let minutes = Math.floor(diff / 1000 / 60) % 60;
+            let hours = Math.floor(diff / 1000 / 60 / 60) % 24;
+            let days = Math.floor(diff / 1000 / 60 / 60 / 24);
+
+            document.getElementById("timer").innerHTML =
+                `${days}д ${hours}г ${minutes}хв ${seconds}с`;
+        }
+ки
+        document.getElementById("subscribeBtn").onclick = function () {
+            let now = Date.now();
+            let diff = eventTime - now;
+
+            let secondsLeft = Math.max(0, Math.floor(diff / 1000));
+
+            document.getElementById("message").innerHTML =
+                `Дякуємо за підписку! Ви встигли! 
+        До завершення підписки залишалося ${secondsLeft}с.`;
+
+            this.disabled = true;
+            this.style.opacity = 0.5;
+        };
+    </script>
+
+</body>
+
+</html>

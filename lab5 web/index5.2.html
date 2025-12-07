@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            width: 400px;
+            margin: 40px auto;
+        }
+
+        #taskInput {
+            width: 75%;
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        #addBtn {
+            padding: 8px 12px;
+            background: #7CC36A;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .task {
+            background: #f2f2f2;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .deleteBtn {
+            color: red;
+            font-weight: bold;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+
+        .done {
+            text-decoration: line-through;
+            color: grey;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Task Manager</h2>
+
+    <input id="taskInput" type="text" placeholder="Введіть задачу...">
+    <button id="addBtn">+</button>
+
+
+    <div id="taskList"></div>
+
+
+    <script>
+
+        document.getElementById("addBtn").onclick = function () {
+            let input = document.getElementById("taskInput");
+            let text = input.value.trim();
+
+            if (text === "") return;  
+
+            let task = document.createElement("div");
+            task.className = "task";
+
+            let span = document.createElement("span");
+            span.innerText = text;
+
+            let del = document.createElement("span");
+            del.innerText = "X";
+            del.className = "deleteBtn";
+
+            task.appendChild(span);
+            task.appendChild(del);
+
+            let list = document.getElementById("taskList");
+            list.insertBefore(task, list.firstChild);
+
+            input.value = "";
+
+            del.onclick = function () {
+                span.classList.add("done");  
+                del.remove();                
+                list.appendChild(task);     
+            };
+        };
+    </script>
+
+</body>
+
+</html>
