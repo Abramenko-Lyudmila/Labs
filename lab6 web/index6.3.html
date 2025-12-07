@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Послідовні та паралельні запити</title>
+</head>
+
+<body style="font-family: Arial; padding: 20px;">
+    <h2>Серія запитів користувачів</h2>
+
+    <button id="btnSequential">Послідовні запити (then/catch)</button>
+    <button id="btnParallel">Паралельні запити (Promise.all)</button>
+
+    <script>
+        // Масив користувачів
+        const users = [
+            { id: 1, name: "Mykola" },
+            { id: 2, name: "Olena" },
+            { id: 3, name: "Stepan" }
+        ];
+
+        // Функція getUser — повертає проміс, затримка 5 сек
+        function getUser(userID) {
+            return new Promise((resolve, reject) => {
+                console.log(`Запит користувача з id=${userID}...`);
+                setTimeout(() => {
+                    const user = users.find(u => u.id === userID);
+                    if (user) resolve(user);
+                    else reject(`User ${userID} not found`);
+                }, 5000);
+            });
+        }
+
+        // ----------------- 1. Послідовні запити -----------------
+        document.getElementById("btnSequential").onclick = function () {
+            console.log("=== Початок послідовних запитів ===");
+
+            getUser(1)
+                .then(user1 => {
+                    console.log("Отримали:", user1);
+                    return getUser(2);
+                })
+                .then(user2 => {
+                    console.log("Отримали:", user2);
+                    return getUser(3);
+                })
+                .then(user3 => {
+                    console.log("Отримали:", user3);
+                })
+                .catch(err => {
+                    console.error("Помилка:", err);
+                })
+                .finally(() => {
+                    console.log("=== Послідовні запити завершено ===");
+                });
+        };
+
+        // ----------------- 2. Паралельні запити -----------------
+        document.getElementById("btnParallel").onclick = function () {
+            console.log("=== Початок паралельних запитів ===");
+
+            Promise.all([getUser(1), getUser(2), getUser(3)])
+                .then(results => {
+                    results.forEach(user => console.log("Отримали:", user));
+                })
+                .catch(err => {
+                    console.error("Помилка:", err);
+                })
+                .finally(() => {
+                    console.log("=== Паралельні запити завершено ===");
+                });
+        };
+    </script>
+</body>
+
+</html>

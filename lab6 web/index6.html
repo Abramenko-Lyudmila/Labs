@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Test Promise Pause</title>
+</head>
+
+<body style="font-family: Arial; padding: 20px;">
+
+    <h2>Перевірка роботи промісу-паузи</h2>
+    <p>Відкрий консоль (F12 → Console), щоб побачити результат.</p>
+
+    <button id="startBtn">Запустити</button>
+
+    <script>
+
+        function delay(ms) {
+            return new Promise(resolve => {
+                setTimeout(resolve, ms);
+            });
+        }
+
+        async function runTest() {
+            console.log("Початок виконання...");
+
+            await delay(1000);
+            console.log("Пройшла 1 секунда");
+
+            await delay(2000);
+            console.log("Пройшло ще 2 секунди");
+
+            await delay(500);
+            console.log("І ще 0.5 секунди — Готово!");
+        }
+
+        document.getElementById("startBtn").onclick = runTest;
+    </script>
+
+</body>
+
+</html>

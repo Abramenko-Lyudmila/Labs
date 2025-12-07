@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <title>DB Request Simulation</title>
+</head>
+
+<body style="font-family: Arial; padding: 20px;">
+
+    <h2>Симуляція запитів до бази даних</h2>
+    <p>Відкрийте консоль (F12 → Console), щоб бачити результат.</p>
+
+    <input id="userId" type="number" placeholder="Введи ID користувача" style="padding:5px;">
+    <button id="btnThen">Запит через then/catch</button>
+    <button id="btnAsync">Запит через async/await</button>
+
+    <script>
+    
+        const users = [
+            { id: 1, name: "Mykola" },
+            { id: 2, name: "Olena" },
+            { id: 3, name: "Stepan" }
+        ];
+
+
+        function getUser(userID) {
+            return new Promise((resolve, reject) => {
+                console.log("Шукаю користувача з id =", userID);
+                setTimeout(() => {
+                    const user = users.find(u => u.id === userID);
+                    if (user) {
+                        resolve(user); 
+                    } else {
+                        reject("User not found"); 
+                    }
+                }, 5000); 
+            });
+        }
+
+        document.getElementById("btnThen").onclick = function () {
+            const id = Number(document.getElementById("userId").value);
+
+            getUser(id)
+                .then(user => {
+                    console.log("Користувача знайшли (then):", user);
+                })
+                .catch(err => {
+                    console.error("Помилка (catch):", err);
+                })
+                .finally(() => {
+                    console.log("Запит завершено (finally)");
+                });
+        };
+
+        document.getElementById("btnAsync").onclick = async function () {
+            const id = Number(document.getElementById("userId").value);
+
+            try {
+                const user = await getUser(id);
+                console.log("Користувача знайшли (async/await):", user);
+            } catch (err) {
+                console.error("Помилка (async/await):", err);
+            } finally {
+                console.log("Запит завершено (async/await finally)");
+            }
+        };
+    </script>
+
+</body>
+
+</html>

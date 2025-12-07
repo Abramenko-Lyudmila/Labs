@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fetch All Users with Error</title>
+</head>
+
+<body style="font-family: Arial; padding: 20px;">
+
+    <h2>Отримати всіх користувачів</h2>
+    <button id="btnFetch">Fetch All Users</button>
+
+    <script>
+        // Масив користувачів (як база)
+        let users = [
+            { id: 1, name: "Mykola" },
+            { id: 2, name: "Olena" },
+            { id: 3, name: "Stepan" }
+            // щоб перевірити помилку, можна поставити users = [];
+        ];
+
+        // Функція fetchAllUsers — повертає проміс з затримкою 3 сек
+        function fetchAllUsers() {
+            return new Promise((resolve, reject) => {
+                console.log("Запит до бази... почекай 3 секунди");
+                setTimeout(() => {
+                    if (users.length > 0) {
+                        resolve(users); // якщо є користувачі
+                    } else {
+                        reject("База даних порожня!"); // якщо немає
+                    }
+                }, 3000);
+            });
+        }
+
+        // Перевірка через async/await
+        document.getElementById("btnFetch").onclick = async function () {
+            console.log("Надсилаємо запит...");
+            try {
+                const allUsers = await fetchAllUsers();
+                console.log("Отримали користувачів:", allUsers);
+            } catch (err) {
+                console.error("Помилка:", err);
+            } finally {
+                console.log("Запит завершено");
+            }
+        };
+    </script>
+
+</body>
+
+</html>
