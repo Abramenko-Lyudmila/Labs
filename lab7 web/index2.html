@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список користувачів</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .user-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .user-list li {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .user-list li:hover {
+            background: #f0f0f0;
+        }
+
+        .pagination {
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            margin: 0 5px;
+            padding: 5px 10px;
+        }
+
+        .details {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Список користувачів</h1>
+    <ul class="user-list" id="userList"></ul>
+
+    <div class="pagination" id="pagination"></div>
+
+    <div class="details" id="userDetails">
+        <h2>Деталі користувача</h2>
+        <p>Оберіть користувача зі списку</p>
+    </div>
+
+    <script src="script2.js"></script>
+</body>
+
+</html>

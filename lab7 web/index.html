@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog API Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        img {
+            max-width: 300px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        #loading {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Випадкова собака 🐶</h1>
+    <button id="fetchBtn">Отримати собаку (fetch)</button>
+    <button id="axiosBtn">Отримати собаку (axios)</button>
+    <div id="loading">Завантаження...</div>
+    <div id="dogContainer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
