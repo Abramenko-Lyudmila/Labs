@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cookie Demo</title>
+</head>
+
+<body>
+    <h1>Лічильник тестового період</h1>
+
+    <p id="trialMessage"></p>
+    <button onclick="clearTrialCookie()">Скинути тестовий період</button>
+
+    <script>
+     
+        function setCookie(name, value, seconds, path = "/") {
+            let cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
+            if (seconds) {
+                cookie += `; max-age=${seconds}`;
+            }
+            cookie += `; path=${path}`;
+            document.cookie = cookie;
+        }
+
+        function getCookie(name) {
+            const cookies = document.cookie.split('; ');
+            for (let c of cookies) {
+                const [key, val] = c.split('=');
+                if (key === encodeURIComponent(name)) {
+                    return decodeURIComponent(val);
+                }
+            }
+            return null;
+        }
+
+        function clearCookie(name, path = "/") {
+            setCookie(name, "", 0, path);
+        }
+
+        const TRIAL_COOKIE = "trial_active_state_55X";
+        const USER_ID = "XYZ-2024";
+        const TRIAL_DURATION = 100;
+
+        function checkTrialPeriod() {
+            const msg = document.getElementById("trialMessage");
+            let cookie = getCookie(TRIAL_COOKIE);
+
+            if (!cookie) {
+                const now = Date.now();
+                cookie = `${now}__${USER_ID}`;
+                setCookie(TRIAL_COOKIE, cookie, TRIAL_DURATION, "/app/test");
+            }
+
+            const [startTimeStr] = cookie.split("__");
+            const startTime = parseInt(startTimeStr);
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const remaining = TRIAL_DURATION - elapsed;
+
+            if (remaining > 0) {
+                msg.textContent = `Тестовий період активний. Залишилося: ${remaining} секунд.`;
+                setTimeout(checkTrialPeriod, 1000);
+            } else {
+                msg.textContent = "Тестовий період закінчився або ще не починався.";
+                clearCookie(TRIAL_COOKIE, "/app/test");
+            }
+        }
+
+        function clearTrialCookie() {
+            clearCookie(TRIAL_COOKIE, "/app/test");
+            document.getElementById("trialMessage").textContent = "Тестовий період скинутий.";
+        }
+
+        checkTrialPeriod();
+    </script>
+</body>
+
+</html>

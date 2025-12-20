@@ -1,0 +1,57 @@
+<!<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Лічильник відвідувань</title>
+</head>
+<body>
+    <h1>Лічильник відвідувань сторінки</h1>
+
+    <p>Ви відвідали цю сторінку <span id="visitCount"></span> раз(и).</p>
+    <button onclick="clearCounter()">Скинути лічильник</button>
+
+    <script>
+    
+        function setCookie(name, value, seconds) {
+            let cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+            if (seconds) {
+                cookie += "; max-age=" + seconds;
+            }
+            cookie += "; path=/";
+            document.cookie = cookie;
+        }
+
+        function getCookie(name) {
+            const cookies = document.cookie.split("; ");
+            for (let c of cookies) {
+                const [key, val] = c.split("=");
+                if (key === encodeURIComponent(name)) {
+                    return decodeURIComponent(val);
+                }
+            }
+            return null;
+        }
+
+        function clearCookie(name) {
+            setCookie(name, "", 0);
+        }
+        function visitCounter() {
+            let count = getCookie("visits");
+            if (count === null) {
+                count = 1;
+            } else {
+                count = Number(count) + 1;
+            }
+            setCookie("visits", count, 45);
+            return count;
+        }
+
+        function clearCounter() {
+            clearCookie("visits");
+            document.getElementById("visitCount").textContent = 0;
+        }
+
+        document.getElementById("visitCount").textContent = visitCounter();
+    </script>
+</body>
+</html>
